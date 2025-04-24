@@ -31,6 +31,8 @@ return {
 				"pyright",
 				"gopls",
 				"jdtls",
+				"yamlls",
+				"terraformls",
 			},
 		})
 
