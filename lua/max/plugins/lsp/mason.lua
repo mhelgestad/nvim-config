@@ -44,6 +44,7 @@ return {
 				"black",
 				"pylint",
 				"eslint_d",
+				"delve",
 			},
 		})
 	end,
