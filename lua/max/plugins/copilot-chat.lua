@@ -10,8 +10,8 @@ return {
 			-- See Configuration section for options
 		},
 		keys = {
-			{ "<leader>gc", "<cmd>CopilotChatToggle<cr>", desc = "Toggle CopilotChat" },
-			{ "<leader>gr", "<cmd>CopilotChatReset<cr>", desc = "Reset CopilotChat" },
+			{ "<leader>CC", "<cmd>CopilotChatToggle<cr>", desc = "Toggle CopilotChat" },
+			{ "<leader>CR", "<cmd>CopilotChatReset<cr>", desc = "Reset CopilotChat" },
 		},
 	},
 }
