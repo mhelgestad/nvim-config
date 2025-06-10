@@ -1,5 +1,4 @@
 return {
-  cmd = { "yaml-language-server" },
-  root_markers = { "." },
+  cmd = { "yaml-language-server", "--stdio" },
   filetypes = { "yaml", "yml" }
 }
