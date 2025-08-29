@@ -484,7 +484,7 @@ vim.lsp.enable("terraform_ls")
 -- python
 -- ==============================================================================
 vim.lsp.config.pylsp = {
-	cmd = { "pylsp" },
+	cmd = { "./.venv/bin/pylsp" },
 	filetypes = { "python" },
 	root_markers = { ".git", "requirements.txt", ".venv", "pyproject.toml" },
 }
