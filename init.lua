@@ -50,7 +50,6 @@ vim.opt.pumblend = 10 -- popup menu transparency
 vim.opt.winblend = 0 -- floating window transparency
 vim.opt.conceallevel = 0 -- don't hide markup
 vim.opt.concealcursor = "" -- don't hide cursorline markup
-vim.opt.lazyredraw = true -- don't redraw during macros
 vim.opt.synmaxcol = 300 -- syntax highlighting limit
 
 -- File handling
@@ -161,7 +160,7 @@ local augroup = vim.api.nvim_create_augroup("UserConfig", {})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup,
 	callback = function()
-		vim.highlight.on_yank()
+		vim.hl.on_yank()
 	end,
 })
 
@@ -612,7 +611,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local opts = { buffer = event.buf }
 
 		-- Navigation
-		vim.keymap.set("n", "gD", vim.lsp.buf.definition, opts)
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 		vim.keymap.set("n", "gs", vim.lsp.buf.declaration, opts)
 		vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
@@ -665,6 +664,10 @@ vim.api.nvim_create_user_command("LspInfo", function()
 end, { desc = "Show LSP client info" })
 
 require("lazy").setup({
+	{
+		"nvim-lua/plenary.nvim", -- lua functions that many plugins use
+		"christoomey/vim-tmux-navigator", -- tmux & split window navigation
+	},
 	-- ============================================================================
 	-- FILE EXPLORER
 	-- ============================================================================
@@ -989,5 +992,41 @@ require("lazy").setup({
 				})
 			end, { desc = "Format file or range (in visual mode)" })
 		end,
+	},
+
+	-- ============================================================================
+	-- Noice
+	-- ============================================================================
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("noice").setup({
+				lsp = {
+					-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+					override = {
+						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+						["vim.lsp.util.stylize_markdown"] = true,
+						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+					},
+				},
+				-- you can enable a preset for easier configuration
+				presets = {
+					bottom_search = true, -- use a classic bottom cmdline for search
+					command_palette = true, -- position the cmdline and popupmenu together
+					long_message_to_split = true, -- long messages will be sent to a split
+					inc_rename = false, -- enables an input dialog for inc-rename.nvim
+					lsp_doc_border = false, -- add a border to hover docs and signature help
+				},
+			})
+		end,
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+		},
 	},
 })
