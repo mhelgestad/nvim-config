@@ -102,7 +102,13 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Delete without yanking
-vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
+-- vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
+
+-- change and delete without yanking
+vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true })
+vim.keymap.set({ "n", "v" }, "D", '"_D', { noremap = true })
+vim.keymap.set({ "n", "v" }, "c", '"_c', { noremap = true })
+vim.keymap.set({ "n", "v" }, "C", '"_C', { noremap = true })
 
 -- Buffer navigation
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
