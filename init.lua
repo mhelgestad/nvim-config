@@ -33,7 +33,7 @@ vim.opt.autoindent = true -- copy indent from current line
 -- search settings
 vim.opt.ignorecase = true -- Case insensitive search
 vim.opt.smartcase = true -- Case sensitive if uppercase in search
-vim.opt.hlsearch = false -- Don't highlight search results
+vim.opt.hlsearch = true -- Don't highlight search results
 vim.opt.incsearch = true -- Show mathces as you type
 
 -- Visual settings
@@ -367,6 +367,16 @@ vim.lsp.enable("dockerls")
 -- ==============================================================================
 
 -- ==============================================================================
+-- jdtls
+-- ==============================================================================
+vim.lsp.config.jdtls = {
+	cmd = { "jdtls" },
+	filetypes = { "java" },
+	root_markers = { "pom.xml", "build.gradle", ".git" },
+}
+vim.lsp.enable("jdtls")
+
+-- ==============================================================================
 -- gpls
 -- ==============================================================================
 vim.lsp.config.gopls = {
@@ -581,6 +591,35 @@ require("lazy").setup({
 	},
 
 	-- ============================================================================
+	-- Bufferline
+	-- ============================================================================
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			local bufferline = require("bufferline")
+			bufferline.setup({
+				options = {
+					style_preset = bufferline.style_preset.minimal,
+					seperator_sytle = "thick",
+					offsets = {
+						{
+							filetype = "NvimTree",
+							text = "File Explorer",
+							highlight = "Directory",
+							separator = true,
+						},
+					},
+				},
+			})
+			local keymap = vim.keymap -- for conciseness
+
+			keymap.set("n", "<leader>bx", "<cmd>bdelete!<cr>", { desc = "Close Buffer" })
+		end,
+	},
+
+	-- ============================================================================
 	-- AutoPairs
 	-- ============================================================================
 	{
@@ -649,6 +688,7 @@ require("lazy").setup({
 					"dockerfile",
 					"terraform",
 					"go",
+					"java",
 				},
 				incremental_selection = {
 					enable = true,

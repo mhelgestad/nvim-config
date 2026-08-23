@@ -9,3 +9,4 @@
 - `brew install ripgrep`
 - `brew install stylua`
 - `brew install gofmt`
+- `brew isntall jdtls`
